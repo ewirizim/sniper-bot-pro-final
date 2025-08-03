@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SniperBot Yatırımcı Paneli</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; background: #111; color: #eee; }
+    h1 { color: #6cf; }
+    .status { background: #222; padding: 10px; margin-bottom: 20px; border-left: 4px solid #6cf; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 10px; border: 1px solid #555; text-align: left; }
+    th { background: #333; }
+    .profit { color: #3f6; }
+    .loss { color: #f66; }
+  </style>
+</head>
+<body>
+  <h1>📊 SniperBot Kontrol Paneli</h1>
+
+  <div class="status">
+    <p><strong>Bot Durumu:</strong> <%= botStatus %></p>
+    <p><strong>Son Token Skoru:</strong> <%= lastScore %> / 100</p>
+    <p><strong>Son Token:</strong> <%= lastToken %></p>
+  </div>
+
+  <h2>📈 İşlem Geçmişi</h2>
+  <% if (trades.length === 0) { %>
+    <p>Henüz kayıtlı işlem yok.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Zaman</th>
+          <th>Token</th>
+          <th>Alım Fiyatı</th>
+          <th>Satış Fiyatı</th>
+          <th>Kar/Zarar</th>
+          <th>Durum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% trades.forEach(function(trade) { %>
+          <tr>
+            <td><%= trade.timestamp %></td>
+            <td><%= trade.token %></td>
+            <td><%= trade.buyPrice %></td>
+            <td><%= trade.sellPrice %></td>
+            <td class="<%= trade.profit >= 0 ? 'profit' : 'loss' %>"><%= trade.profit %> %</td>
+            <td><%= trade.status %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+</body>
+</html>
